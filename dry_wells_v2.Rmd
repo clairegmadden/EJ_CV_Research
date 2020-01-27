@@ -1,5 +1,5 @@
 ---
-title: "Dry_wells_figures"
+title: "Dry_wells_V2"
 author: "Claire Madden"
 date: "1/26/2020"
 output: html_document
@@ -11,7 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-```{r}
+
+
+
+```{r, include = FALSE}
 
 library(tidyverse)
 library(RColorBrewer)
@@ -19,16 +22,14 @@ library(ggrepel)
 library(wesanderson)
 library(beyonce)
 
-data <- read_csv("ALLdrywells_ratios.csv") %>%
+data <- read_csv("ratios_for_R.csv") %>%
   mutate(percentdry = ratio*100)
 
 
 data1 <- data %>% 
   filter(ratio < 1)
 
-
 ```
-
 
 
 ```{r, include = FALSE}
@@ -101,16 +102,16 @@ trial_scatter
 
 #cant figure out how to save as character with "%" sign at the end so will have to manually input each percentage to the labels below
 
-zerototen <- length(which(nozeros$tenpercbins == "0%-10%"))*(100/232)
-tentotwenty <- length(which(nozeros$tenpercbins == "10%-20%"))*(100/232)
-twentytothirty <- length(which(nozeros$tenpercbins == "20%-30%"))*(100/232)
-thirtytoforty <- length(which(nozeros$tenpercbins == "30%-40%"))*(100/232)
-fortytofifty <- length(which(nozeros$tenpercbins == "40%-50%"))*(100/232)
-fiftytosixty <- length(which(nozeros$tenpercbins == "50%-60%"))*(100/232)
-sixtytoseventy <- length(which(nozeros$tenpercbins == "60%-70%"))*(100/232)
-seventytoeighty <- length(which(nozeros$tenpercbins == "70%-80%"))*(100/232)
-eightytoninety <- length(which(nozeros$tenpercbins == "80%-90%"))*(100/232)
-ninetytoonehund <- length(which(nozeros$tenpercbins == "90%-100%"))*(100/232)
+zerototen <- length(which(nozeros$tenpercbins == "0%-10%"))/2
+tentotwenty <- length(which(nozeros$tenpercbins == "10%-20%"))/2
+twentytothirty <- length(which(nozeros$tenpercbins == "20%-30%"))/2
+thirtytoforty <- length(which(nozeros$tenpercbins == "30%-40%"))/2
+fortytofifty <- length(which(nozeros$tenpercbins == "40%-50%"))/2
+fiftytosixty <- length(which(nozeros$tenpercbins == "50%-60%"))/2
+sixtytoseventy <- length(which(nozeros$tenpercbins == "60%-70%"))/2
+seventytoeighty <- length(which(nozeros$tenpercbins == "70%-80%"))/2
+eightytoninety <- length(which(nozeros$tenpercbins == "80%-90%"))/2
+ninetytoonehund <- length(which(nozeros$tenpercbins == "90%-100%"))/2
 ```
 
 
@@ -126,16 +127,16 @@ nozeroscatter <- ggplot(nozeros, aes(x = CESscoreP, y = percentdry))+
   scale_x_continuous(expand = c(0,0), breaks = seq(0,102, by = 10), limits = c(0,102))+
   scale_y_continuous(expand = c(0,0), breaks = seq(0,100, by = 10), limits = c(0,100))+
   theme_classic()+
-  annotate("label", x = 5, y = 95, round(label = zerototen, digits =2), color = "#5E4FA2", size = 6)+
-  annotate("label", x = 15, y = 95, label = tentotwenty, color = "#3288BD", size = 6)+
-  annotate("label", x = 25, y = 95, label = twentytothirty, color = "#66C2A5", size = 6)+
-  annotate("label", x = 35, y = 95, label = thirtytoforty, color = "#ABDDA4", size = 6)+
-  annotate("label", x = 45, y = 95, label = fortytofifty, color = "olivedrab3", size = 6)+
-  annotate("label", x = 55, y = 95, label = fiftytosixty, color = "gold", size = 6)+
-  annotate("label", x = 65, y = 95, label = sixtytoseventy, color = "#FDAE61", size = 6)+
-  annotate("label", x = 75, y = 95, label = seventytoeighty, color = "#F46D43", size = 6)+
-  annotate("label", x = 85, y = 95, label = eightytoninety, color = "#D53E4F", size = 6)+
-  annotate("label", x = 95, y = 95, label = ninetytoonehund, color = "#9E0142", size = 6)+
+  annotate("label", x = 5, y = 95, label = "1%", color = "#5E4FA2", size = 6)+
+  annotate("label", x = 15, y = 95, label = "0.5%", color = "#3288BD", size = 6)+
+  annotate("label", x = 25, y = 95, label = "1.5%", color = "#66C2A5", size = 6)+
+  annotate("label", x = 35, y = 95, label = "4%", color = "#ABDDA4", size = 6)+
+  annotate("label", x = 45, y = 95, label = "8%", color = "olivedrab3", size = 6)+
+  annotate("label", x = 55, y = 95, label = "11%", color = "gold", size = 6)+
+  annotate("label", x = 65, y = 95, label = "14%", color = "#FDAE61", size = 6)+
+  annotate("label", x = 75, y = 95, label = "23.5%", color = "#F46D43", size = 6)+
+  annotate("label", x = 85, y = 95, label = "24.5%", color = "#D53E4F", size = 6)+
+  annotate("label", x = 95, y = 95, label = "12%", color = "#9E0142", size = 6)+
   geom_vline(xintercept=c(10,20,30,40,50,60,70,80,90,100), linetype="dotted", color = "grey30")+
   labs(x = "CalEnviroScreen Score Percentile",
        y = "Percent of Domestic Wells Reported Dry \nby Census Tract")+
@@ -144,6 +145,10 @@ nozeroscatter <- ggplot(nozeros, aes(x = CESscoreP, y = percentdry))+
 
 
 nozeroscatter
+```
+
+
+```{r, echo = FALSE, warning=FALSE}
 ```
 
 
@@ -171,7 +176,7 @@ pointdata <- data %>%
 
 mymap <- st_read("CESsimple.shp", stringsAsFactors = FALSE) 
 
-mypoints<-st_read("ALL_drywells.shp", stringsAsFactors = FALSE)
+mypoints<-st_read("DWR_Dry_Wells.shp", stringsAsFactors = FALSE)
 
 
 map_and_data <- inner_join(mymap,data)
@@ -183,6 +188,7 @@ map <- ggplot()+
   geom_sf(data = map_and_data, aes(fill = tenpercbins))+
   scale_fill_brewer(palette = "Spectral", direction = -1)+
   geom_sf(data = mypoints, size = 1, color = "black", shape = 21)+
+  geom_sf(data = cv, aes(fill = NA), color = "white")+
   theme_classic()+
   labs(x = "Longitude",
        y = "Latitude",
@@ -192,7 +198,16 @@ map <- ggplot()+
 map
 
 
+
+
+
 ```
+
+
+
+
+
+
 
 
 
@@ -221,10 +236,9 @@ map1
 
 
 ```{r}
-###########revisit!!##########################
 
 
-CESpolygons <- read_sf("ALL_drywells_CES_join.shp")
+CESpolygons <- read_sf("CESpolygons_with_drywells.shp")
 
 map2_and_data <- inner_join(CESpolygons,data)
 
@@ -243,6 +257,9 @@ map2 <- ggplot()+
 
 
 map2
+
+
+
 
 
 ```
@@ -286,9 +303,9 @@ histscatter
 ```{r}
  
 
+CV_domwells<- read_csv("for_refhist.csv")
 
-
-refhist <- ggplot(data = data, aes(x = CESscoreP))+
+refhist <- ggplot(data = CV_domwells, aes(x = CIscoreP))+
   geom_histogram(bins = 10, breaks = seq(0,100,10), aes(alpha = I(0.3)))+
   geom_vline(xintercept=c(10,20,30,40,50,60,70,80,90,100), linetype="dotted", color = "grey30")+
   theme_classic()+
@@ -299,6 +316,27 @@ refhist <- ggplot(data = data, aes(x = CESscoreP))+
 refhist
 
 ```
+
+
+
+```{r}
+
+test1 <- wilcox.test(CV_domwells$CIscoreP, nozeros$CESscoreP)
+
+
+test1
+
+
+
+
+
+```
+
+
+
+
+
+
 
 
 
